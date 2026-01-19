@@ -1,0 +1,13 @@
+{
+
+    "client_id":"59981644034-gcoiu25cda9v0ruig0mgj79d6b6qf3n0.apps.googleusercontent.com",
+"project_id":"sunny-mountain-343711",
+"auth_uri":"https://accounts.google.com/o/oauth2/auth",
+"token_uri":"https://oauth2.googleapis.com/token",
+"auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+"client_secret":"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",
+"javascript_origins":["http://localhost:3000","https://b-c-eight.vercel.app"],
+"private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC+TQTVYyFBEtgg\nVyV9/adW2TiAgQ8o7P+Kex3XX/SkRpdXUCbckJKZnnxFeTEJO7zflaBm2ti7h73m\ny2iL6+L2SSB5L6gHqgMPBCzBnCa4j3whO9ioA7in+IrbNsZuj1O/4CwyQEUqMzRO\nin+urPSLo4EghmMRdIGrPE3Lih3qFlAzSVQlXhdPncnijKBHlTipjSFm98bkIv/4\nU5aztdxStxZ68whWuAbjyCNgMqnKJxaOiJqJyucORyDFFFxKspOOnBmfX7llJpVK\nWGUxiyfzlQC4BFg6TIV8ar0fXmcw4HaJTGue3lPAN3kMI2pJ2lodvTJ+AE8deVFN\nhsbDa1mTAgMBAAECggEABKf2w8/Smvh+kEABm1UO+JmE/+PofoxZ7kX343KmFjTh\n9BFyefgRli+iA8Mk14B+LQxIqeuV3PTDyTdV3gKOAY+le0GWv2VCAOaNv8j1y5M7\nKsb/lJDOvlFe+GEdNsxL9Mhj3HDlIFSzZW6PFDOIIjiEasrO9rjeiVWG48GD3NvX\nEy+hkhtJQ/OoT0ccMKEdJQ8Sfeula5kHBSr5dR3lAAVtrxcCgu349vuVrgrig5eV\nfeHPoJzsyJ6J14zhNJxZkR1yXu4SgUKb0x9kvnPdEJmn83yb3KmmWUOVP7WetyCW\nNsgyEyw229BnoVu83zTW1wjQwTY0pmuYU6nqvv0PNQKBgQDtWJaUqeV//C0vJ+bW\nTxfu88NsZhUwegvqylC2LkXEspU/lOuzX2ymgRcdFCLqjhL+Jlw+ue3oDfMUAH2e\nriLKUNnp52YThUIVf9nfzTVF0GZ5wk4FVKDa+5lMuOEwgSzudIG0aV/srCm19QMo\nlg8GwL9PMOfO1mXks1TAbonTxQKBgQDNQeEqVJ5y4ze6HF3fFg5d4NvmLVNn/zZa\n/upFU32k2Z4stTlyMRcwBLqoUoRc5Lvf+c5nFFhXwpJmUV2Le5W+oUxyO53Hgf/y\nEGLsO0m/QnAirSQwDMh7LjWym9VaVCxVLG9CNLqqckkUyh2V7VCL+sgehvm15nKy\nP6Ju6vvVdwKBgGOSNKntlLBatQIBdWAXEm1WqneBZAZQTUuU0MN9KhvY57Ai47b+\no3A+29mBJxzLucARi8Vs7xfZMk8D3a+CUmoZ/TGZuEMcNpsaZeb0ChNd2H/gOicW\nV91GjAuZzC8zIgxvqDJtuqZpm54QSeDvAyLMHfY1CCrH2ztU2ItaVEwZAoGBAIO/\nb5nOKs4vjkuFfbN94sbbWAqMuWadZ/RMf270QkeX73Fe+XqUi/+kaXM1VASURQtk\nutlrM7FREMtgGp03PEzaF8mS/plalkB3yCc9fv6m1HdNj1bQPbbjWFBGulF6ieI5\n3UgvtElHhiUz/n2HkBXpaJ4/oPTi8Gf9dHOhnPfNAoGBALLexv12Tg+DmzCQqADo\nSxTdG7rH8OD69q50YBwM6mUgzbQyJ2dAQ8IW7xWfz+zZ30rt+rKmLmZtzSu+pBZ9\nW4h/WNltnlTd9FG9aXFCqCHxDV1pdoLCOM5pbcBrfwbnpoWHfheShFIPqD/b1MGV\n+CHvpnF8luUXhwH2AqgEM0UG\n-----END PRIVATE KEY-----\n",
+  "client_email": "blind-curtains@sunny-mountain-343711.iam.gserviceaccount.com"
+}
+

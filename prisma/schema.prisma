@@ -1,0 +1,228 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Categories {
+  id          Int        @id @default(autoincrement())
+  title       String     @unique
+  products    products[] @relation("CategoryToProducts")
+  posterImage Json
+  updatedAt   DateTime?
+
+  subCategories    SubCategories[] @relation("CategoryToSubCategories")
+  description      String?
+  createdAt        DateTime        @default(now())
+  Images_Alt_Text  String?
+  Meta_Title       String?
+  Canonical_Tag    String?
+  Meta_description String?
+  last_editedBy    String?
+  bannerImage      Json?
+  // Banner Images
+  topHeading       String?
+
+  breakcrum          String?
+  productpageHeading String?
+  faqHeading         String?
+  faqs               Json[]  @default([])
+  headingchecks      Json[]  @default([])
+  categoryCustomUrl  String?
+  productCustomUrl   String?
+  status             Status? @default(PUBLISHED)
+}
+
+
+model SubCategories {
+  id         Int       @id @default(autoincrement())
+  title      String
+  CategoryId Int
+  updatedAt  DateTime?
+
+  category          Categories @relation("CategoryToSubCategories", fields: [CategoryId], references: [id])
+  products          products[] @relation("SubCategoryToProducts")
+  posterImage       Json
+  description       String?
+  createdAt         DateTime   @default(now())
+  short_description String?
+  Images_Alt_Text   String?
+  Meta_Title        String?
+  Canonical_Tag     String?
+  Meta_description  String?
+  last_editedBy     String?
+  bannerImage       Json?
+  staticTitle       String?
+  status            Status?    @default(PUBLISHED)
+  customUrl         String?
+}
+
+model products {
+  id            Int             @id @default(autoincrement())
+  title         String          @unique
+  posterImage   Json
+  imageUrls     Json[]
+  price         Float
+  CategoryId    Int
+  SubCategoryId Int?
+  description   String?
+  updatedAt     DateTime?
+  createdAt     DateTime        @default(now())
+  category      Categories      @relation("CategoryToProducts", fields: [CategoryId], references: [id])
+  subCategory   SubCategories[] @relation("SubCategoryToProducts")
+  product_type  String          @default("By Type")
+
+  Meta_description        String?
+  Images_Alt_Text         String?
+  Meta_Title              String?
+  Canonical_Tag           String?
+  short_description       String?
+  heading                 String?
+  Sub_Heading             String?
+  Sub_Heading_description String?
+  last_editedBy           String?
+  bannerImage             Json?
+  subCategoryImage        Json?
+  subcategory_description String?
+  modelDetails            Json[]  @default([])
+
+  // new Design
+  customUrl      String? //✅
+  breadcurum     String? //✅
+  faqs           Json[]  @default([]) //✅
+  videos         Json[]  @default([])
+  topImages      Json[]  @default([]) //✅
+  colors         Json[]  @default([]) //✅
+  topHeading     String? //✅
+  mainHeading    String? //✅
+  privacySectoin Json[]  @default([]) //✅
+  privarcyImage  Json? //✅
+  colorsImages   Json[]  @default([])
+  status         Status? @default(PUBLISHED)
+}
+
+enum contact_method {
+  Whatsapp
+  Email
+  Telephone
+}
+
+model Appointments {
+  id                      Int      @id @default(autoincrement())
+  name                    String
+  phone_number            String
+  area                    String
+  email                   String
+  whatsapp_number         String?
+  windows                 String
+  prefered_Date           DateTime
+  how_user_find_us        String
+  user_query              String
+  product_type            String[]
+  other                   String?
+  prefered_contact_method String[] @default([])
+  prefered_time           String?
+  address                 String?
+  createdAt               DateTime @default(now())
+}
+
+model Admins {
+  id                        Int     @id @default(autoincrement())
+  fullname                  String
+  email                     String  @unique
+  password                  String
+  canAddProduct             Boolean @default(false)
+  canEditProduct            Boolean @default(false)
+  canDeleteProduct          Boolean @default(false)
+  canAddCategory            Boolean @default(false)
+  canDeleteCategory         Boolean @default(false)
+  canEditCategory           Boolean @default(false)
+  canAddSubCategory         Boolean @default(false)
+  canDeleteSubCategory      Boolean @default(false)
+  canEditSubCategory        Boolean @default(false)
+  canViewAppointments       Boolean @default(false)
+  canVeiwAdmins             Boolean @default(false)
+  canVeiwTotalproducts      Boolean @default(false)
+  canVeiwTotalCategories    Boolean @default(false)
+  canVeiwTotalSubCategories Boolean @default(false)
+  canAddBlog                Boolean @default(false)
+  canDeleteBlog             Boolean @default(false)
+  canEditBlog               Boolean @default(false)
+  posterImageUrl            Json?
+  role                      String  @default("Admin")
+}
+
+model blogs {
+  id               Int              @id @default(autoincrement())
+  title            String
+  content          String
+  category         String
+  updatedAt        DateTime?
+  createdAt        DateTime         @default(now())
+  posterImage      Json             @default("{}")
+  comments         blogs_comments[] @relation("BlogComments")
+  last_editedBy    String?
+  Images_Alt_Text  String?
+  Meta_Title       String?
+  Canonical_Tag    String?
+  Meta_description String?
+  isPublished      Boolean          @default(false)
+  redirectionUrl   String?          @default("")
+  customUrl        String?
+}
+
+model blogs_comments {
+  id            Int           @id @default(autoincrement())
+  name          String
+  Email         String
+  description   String
+  createdAt     DateTime      @default(now())
+  replies       Json[]
+  blogId        Int
+  blog          blogs         @relation("BlogComments", fields: [blogId], references: [id])
+  status        CommentStatus @default(PENDING)
+  last_editedBy String?
+}
+
+enum CommentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model reviews {
+  id                 Int       @id @default(autoincrement())
+  posterImageUrl     Json?
+  name               String
+  starRating         Int?
+  ReviewsDescription String
+  reviewDate         String?
+  createdAt          DateTime? @default(now())
+  updatedAt          DateTime?
+  ReviewsImages      Json[]    @default([])
+}
+
+model callbacks {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String
+  createdAt DateTime @default(now())
+}
+
+model Redirecturls {
+  id            Int       @id @default(autoincrement())
+  url           String    @unique()
+  redirectedUrl String
+  createdAt     DateTime? @default(now())
+  updatedAt     DateTime?
+}
