@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto, CreateRirectUrls } from './dto/create-review.dto';
 import { UpdateReviewDto, UpdateRirectUrls } from './dto/update-review.dto';
@@ -7,9 +15,7 @@ import { UpdateReviewDto, UpdateRirectUrls } from './dto/update-review.dto';
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
 
-
-  
-  @Post("add_redirect")
+  @Post('add_redirect')
   createRedirectUrl(@Body() CreateRirectUrls: CreateRirectUrls) {
     return this.reviewsService.createRedirectUrl(CreateRirectUrls);
   }
@@ -26,7 +32,7 @@ export class ReviewsController {
 
   @Patch('update_Redirect')
   updateOneRedirectUrls(@Body() UpdateRirectUrls: UpdateRirectUrls) {
-    return this.reviewsService.updateOneRedirectUrls( UpdateRirectUrls);
+    return this.reviewsService.updateOneRedirectUrls(UpdateRirectUrls);
   }
 
   @Delete('delet/:id')
@@ -34,8 +40,6 @@ export class ReviewsController {
     return this.reviewsService.removeRedirectUrls(+id);
   }
 
-
-  
   @Post()
   create(@Body() createReviewDto: CreateReviewDto) {
     return this.reviewsService.create(createReviewDto);
@@ -53,7 +57,7 @@ export class ReviewsController {
 
   @Patch('updated_reviews')
   update(@Body() updateReviewDto: UpdateReviewDto) {
-    return this.reviewsService.update( updateReviewDto);
+    return this.reviewsService.update(updateReviewDto);
   }
 
   @Delete(':id')
@@ -61,9 +65,5 @@ export class ReviewsController {
     return this.reviewsService.remove(+id);
   }
 
-
-
-// Redirecturls
-
-
+  // Redirecturls
 }

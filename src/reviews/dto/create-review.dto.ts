@@ -1,34 +1,28 @@
-import { IsDate, IsNumber, IsOptional, IsString } from "class-validator"
+import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateReviewDto {
-    @IsOptional()
-    posterImageUrl?: any
+  @IsOptional()
+  posterImageUrl?: any;
 
-    @IsString()
-    name: string
+  @IsString()
+  name: string;
 
-    @IsNumber()
-    starRating: number
+  @IsNumber()
+  starRating: number;
 
-    @IsString()
-    ReviewsDescription: string
+  @IsString()
+  ReviewsDescription: string;
 
-    @IsString()
-    reviewDate: string
+  @IsString()
+  reviewDate: string;
 
-    @IsOptional()
-    ReviewsImages?: any[]
-
+  @IsOptional()
+  ReviewsImages?: any[];
 }
 
-
-
 export class CreateRirectUrls {
-    @IsString()
-    url: string
-    @IsString()
-    redirectedUrl: string
-
-
-
+  @IsString()
+  url: string;
+  @IsString()
+  redirectedUrl: string;
 }

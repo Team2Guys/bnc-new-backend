@@ -1,4 +1,9 @@
-import { IsString, IsNumber, IsOptional, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 // Define the nested DTO within the same file
@@ -10,8 +15,6 @@ class ImageUrlDto {
   readonly public_id: string | any;
 }
 
-
-
 export class CreateProductDto {
   @IsString()
   readonly title: string;
@@ -19,7 +22,7 @@ export class CreateProductDto {
   readonly category: any;
 
   @IsNumber()
-  readonly price: number; 
+  readonly price: number;
 
   @IsOptional()
   @IsString()
@@ -29,9 +32,7 @@ export class CreateProductDto {
   @Type(() => ImageUrlDto)
   readonly imageUrls: ImageUrlDto[];
 
-  
   @ValidateNested()
-  @Type(()=>ImageUrlDto)
-  readonly posterImage: ImageUrlDto
-
-}  
+  @Type(() => ImageUrlDto)
+  readonly posterImage: ImageUrlDto;
+}
