@@ -10,5 +10,5 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
-  phone: string; 
+  phone: string;
 }
