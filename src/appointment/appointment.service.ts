@@ -7,7 +7,7 @@ import { CreateUserDto } from '../../src/admins/dto/create-user.dto';
 import { CreateContactDto } from 'src/reviews/dto/create-review.dto';
 @Injectable()
 export class AppointmentService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
   private transporter = nodemailer.createTransport({
     host: 'mail.blindsandcurtains.ae',
     port: 587,
@@ -37,64 +37,56 @@ export class AppointmentService {
       const day = String(dateObject.getDate()).padStart(2, '0');
       const formattedDate = `${year}-${month}-${day}`;
 
+
       const windowDressingTypes = {
-        roller_blinds: 'roller_blinds',
-        wooden_blinds: 'wooden_blinds',
-        curtains: 'curtains',
-        other_blinds: 'other_blinds',
-        plantation_shutters: 'plantation_shutters',
-        others: 'others',
+        roller_blinds: "roller_blinds",
+        wooden_blinds: "wooden_blinds",
+        curtains: "curtains",
+        other_blinds: "other_blinds",
+        plantation_shutters: "plantation_shutters",
+        others: "others",
       };
 
       let params = {
-        name: user_data.name,
-        phone_number: user_data.phone_number,
-        whatsapp_number: user_data.whatsapp_number,
-        email: user_data.email,
-        availability: {
-          date: formattedDate,
-          time: extractedTime,
+        "name": user_data.name,
+        "phone_number": user_data.phone_number,
+        "whatsapp_number": user_data.whatsapp_number,
+        "email": user_data.email,
+        "availability": {
+          "date": formattedDate,
+          "time": extractedTime
         },
-        number_of_windows: user_data.windows,
-        referral_source: user_data.how_user_find_us,
-        location: 'Downtown, Dubai',
-        window_dressing_types: Object.keys(windowDressingTypes).reduce(
-          (acc, key) => {
-            acc[key] = Array.isArray(user_data.product_type)
-              ? user_data.product_type.includes(windowDressingTypes[key])
-              : false;
-            return acc;
-          },
-          {},
-        ),
-        additional_requirements: user_data.user_query,
-      };
+        "number_of_windows": user_data.windows,
+        "referral_source": user_data.how_user_find_us,
+        "location": "Downtown, Dubai",
+        window_dressing_types: Object.keys(windowDressingTypes).reduce((acc, key) => {
+          acc[key] = Array.isArray(user_data.product_type)
+            ? user_data.product_type.includes(windowDressingTypes[key])
+            : false;
+          return acc;
+        }, {}),
+        "additional_requirements": user_data.user_query
+      }
+
 
       await this.sendConfirmationEmail(user_data, null, newAppointment);
-      await this.sendConfirmationEmail(
-        user_data,
-        user_data.email,
-        newAppointment,
-      );
+      await this.sendConfirmationEmail(user_data, user_data.email, newAppointment,);
 
-      const response = await fetch(
-        'https://stage.twoguys.ae/blindcurtains/lead',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ params }),
+      const response = await fetch('https://stage.twoguys.ae/blindcurtains/lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-      );
+        body: JSON.stringify({ params })
+      });
 
       const contentType = response.headers.get('content-type');
 
-      if (contentType && contentType.includes('application/json')) {
-        const data = await response.json();
-        console.log(data, 'data');
-      }
-
+if (contentType && contentType.includes('application/json')) {
+  const data = await response.json();
+  console.log(data, "data");
+} 
+ 
       return { message: 'Appointment created successfully🎉', newAppointment };
     } catch (error) {
       if (error.response) {
@@ -110,6 +102,8 @@ export class AppointmentService {
     }
   }
 
+
+
   getAllPointments() {
     try {
       return this.prisma.appointments.findMany();
@@ -124,11 +118,9 @@ export class AppointmentService {
     appointment: Prisma.AppointmentsCreateInput,
   ) {
     try {
-      console.log(user_data.product_type);
+      console.log(user_data.product_type)
       const product_type = capitalizeWords(user_data.product_type);
-      const recipients = user_mail
-        ? `${user_mail}`
-        : `${process.env.RECEIVER_MAIL1}, ${process.env.RECEIVER_MAIL3}, ${process.env.RECEIVER_MAIL4}`;
+      const recipients = user_mail ? `${user_mail}` : `${process.env.RECEIVER_MAIL1}, ${process.env.RECEIVER_MAIL3}, ${process.env.RECEIVER_MAIL4}`;
       const mailOptions = {
         from: `"The Team @ Blinds and Curtains Dubai" <${process.env.MAILER_MAIL}>`,
         to: recipients,
@@ -204,11 +196,14 @@ export class AppointmentService {
     }
   }
 
+
+
   async sendEmail(user_data: CreateUserDto) {
     try {
       const { name, email, phone } = user_data;
 
-      const htmlContent = `
+      const htmlContent =
+        `
      <div style="font-family: Arial, sans-serif; padding: 20px;">
   <h2>Hi ${name},</h2>
   <p>Thank you for reaching out to Blinds And Curtains, Dubai’s trusted choice for premium blinds and curtains. We’ve received your enquiry, and one of our experts will be in touch with you shortly to assist with your window solution needs.</p>
@@ -227,6 +222,9 @@ export class AppointmentService {
 
     `;
 
+
+
+
       // Send email to user
       await this.transporter.sendMail({
         from: `" Thank you for your inquiry request" <${process.env.MAILER_MAIL}>`,
@@ -243,18 +241,98 @@ export class AppointmentService {
         html: htmlContent,
       });
 
-      await this.prisma.callbacks.create({ data: user_data });
+
+      await this.prisma.callbacks.create({ data: user_data })
       return { success: true, message: 'Emails sent successfully' };
     } catch (error) {
       return CustomErrorHandler(`${error.message}`, 'INTERNAL_SERVER_ERROR');
     }
   }
 
+  async contactUS (CreateContactDto : CreateContactDto){
+    try {
+      const { fullName, email, phone,whatsapp, message } = CreateContactDto;
+
+   
+   const htmlContent=     `
+          <div style="font-family: Arial, sans-serif; color: #333;">
+            <h2 style="color: #3E3F42;">📩 New Contact Us Submission</h2>
+            <p><strong>Name:</strong> ${fullName}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone || "Not Provided"}</p>
+            <p><strong>Phone:</strong> ${whatsapp || "Not Provided"}</p>
+
+            <p><strong>Message:</strong></p>
+            <blockquote style="background: #f9f9f9; padding: 10px; border-left: 4px solid #3E3F42;">
+              ${message}
+            </blockquote>
+            <hr>
+            <p style="font-size: 12px; color: #999;">This email was generated from your website contact form.</p>
+          </div>
+        `
+
+        const customerTemplate = (fullName: string) => `
+        <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+          <h2 style="color: #F1B42F;">Thank you for contacting Blinds & Curtains</h2>
+          <p>Dear <strong>${fullName}</strong>,</p>
+          <p>We have received your query and it has been forwarded to the relevant team. Our experts will get back to you as soon as possible.</p>
+      
+          <p>In the meantime, feel free to explore our wide collection of blinds and curtains at 
+            <a href="https://blindsandcurtains.ae/" style="color: #F1B42F; text-decoration: none;">
+              www.blindsandcurtains.ae
+            </a>.
+          </p>
+      
+          <p>If you have any urgent questions, you can reach us directly at 
+            <a href="mailto:sales@blindsandcurtains.ae" style="color: #F1B42F;">sales@blindsandcurtains.ae</a>.
+          </p>
+      
+          <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+          <p style="font-size: 12px; color: #999;">
+            This is an automated confirmation email from Blinds & Curtains.<br>
+            Thank you for choosing us!
+          </p>
+        </div>
+      `;
+      
+
+
+        await this.transporter.sendMail({
+          from: `" Thank you for your inquiry request" <${process.env.MAILER_MAIL}>`,
+          to: email,
+          subject: 'Thank you for your inquiry request',
+          html: customerTemplate(fullName),
+        });
+  
+        // Send email to admin
+        await this.transporter.sendMail({
+          from: `"New Contact Us Request from " <${process.env.MAILER_MAIL}>`,
+          to: `${process.env.RECEIVER_MAIL1}, ${process.env.RECEIVER_MAIL3}, ${process.env.RECEIVER_MAIL4}`,
+          subject: 'New Callback Request Received',
+          html: htmlContent,
+        })
+      return {message: 'form Sucessfully submitted'}
+      } catch (error: any) {
+        console.log(error, "err")
+        return CustomErrorHandler(`${error.message || JSON.stringify(error)}`, 'GATEWAY_TIMEOUT')
+      }
+    }
+    
+
+
+
+
+
+
+
   async AllBacks() {
     try {
-      return await this.prisma.callbacks.findMany({});
+
+      return await this.prisma.callbacks.findMany({})
     } catch (error) {
       return CustomErrorHandler(`${error.message}`, 'INTERNAL_SERVER_ERROR');
     }
   }
+
+
 }

@@ -35,10 +35,8 @@ export class BlogsController {
   }
 
   @Put('update/:id')
-  update(
-    @Param('id') id: string,
-    @Body() updateBlogDto: Prisma.blogsUpdateInput,
-    @Req() req: Request,
+  update(@Param('id') id: string,@Body() updateBlogDto: Prisma.blogsUpdateInput,
+  @Req() req:Request
   ) {
     return this.blogsService.update(+id, updateBlogDto, req);
   }
@@ -62,7 +60,7 @@ export class BlogsController {
   async updateStatus(
     @Param('id') id: string,
     @Body() updateStatusDto: UpdateStatusDto,
-    @Req() req: Request,
+    @Req() req:Request
   ) {
     return this.blogsService.updateStatus(+id, updateStatusDto.status, req);
   }

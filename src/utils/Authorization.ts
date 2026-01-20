@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NestMiddleware,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 
@@ -15,11 +11,11 @@ export class JwtMiddleware implements NestMiddleware {
     }
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decoded, 'decoded');
+    console.log(decoded, "decoded")
       req['user'] = decoded;
       next();
     } catch (err) {
-      console.log(err, 'err');
+      console.log(err, "err")
       throw new UnauthorizedException('Invalid token');
     }
   }
