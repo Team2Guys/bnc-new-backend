@@ -19,33 +19,17 @@ export class ProductsService {
     req: Request | any,
   ) => {
     const { email } = req.user;
-    const { recalledByCategories: recallCat, ...withoutRecall } =
-      createCategoryDto;
-
-    const recalledByCategories = req.body.recalledByCategories; // assuming this is an array of IDs
+    const { title } = createCategoryDto;
 
     let AlreadyExistedProduct = await this.prisma.products.findUnique({
-      where: { title: withoutRecall.title },
+      where: { title: title },
     });
     if (AlreadyExistedProduct)
       return CustomErrorHandler('Product Already Exist', 'BAD_REQUEST');
+
     try {
-      const data: any = {
-        ...withoutRecall,
-        last_editedBy: email,
-      };
-
-      if (recalledByCategories.length > 0) {
-        data.recalledByCategories = {
-          connect: recalledByCategories.map((id: number) => ({
-            id: Number(id),
-          })),
-        };
-      }
-      console.log(createCategoryDto, 'data');
-
       let response = await this.prisma.products.create({
-        data,
+        data: { ...createCategoryDto, last_editedBy: email },
         include: {
           category: true,
           subCategory: true,
@@ -56,6 +40,7 @@ export class ProductsService {
         message: 'Product has been added Successfully',
       };
     } catch (error: any) {
+      console.log(error, 'err');
       return CustomErrorHandler(
         `${error.message || JSON.stringify(error)}`,
         'GATEWAY_TIMEOUT',
@@ -85,26 +70,10 @@ export class ProductsService {
       if (!product) {
         return CustomErrorHandler('Product not found', 'NOT_FOUND');
       }
-
-      const recalledByCategories = req.body.recalledByCategories; // assuming this is an array of IDs
-
-      console.log(recalledByCategories, 'recalledByCategories');
       let updatedAt = new Date();
       let updated_products = await this.prisma.products.update({
         where: { id: id },
-        data: {
-          ...updateProduct,
-          last_editedBy: email,
-
-          recalledByCategories: {
-            set: Array.isArray(recalledByCategories)
-              ? recalledByCategories.map((categoryId: number) => ({
-                  id: Number(categoryId),
-                }))
-              : [],
-          },
-          updatedAt,
-        },
+        data: { ...updateProduct, last_editedBy: email, updatedAt },
         include: { subCategory: true, category: true },
       });
 

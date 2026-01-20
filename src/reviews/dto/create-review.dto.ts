@@ -26,29 +26,3 @@ export class CreateRirectUrls {
   @IsString()
   redirectedUrl: string;
 }
-
-export class getUrls {
-  @IsString()
-  url: string;
-}
-
-export class CreateContactDto {
-  @IsString()
-  fullName: string;
-
-  @IsString()
-  email: string;
-
-  @IsString()
-  @IsOptional()
-  whatsapp: string;
-
-  @IsString()
-  address: string;
-
-  @IsString()
-  message: string;
-
-  @IsString()
-  phone: string;
-}

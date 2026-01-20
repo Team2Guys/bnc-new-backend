@@ -8,15 +8,11 @@ const prisma = new PrismaService();
 export const getAllproducts = async () => {
   try {
     let products = await prisma.products.findMany({
-      include: {
-        subCategory: true,
-        category: true,
-        recalledByCategories: true,
-      },
+      include: { subCategory: true, category: true },
     });
     return products;
   } catch (error) {
-    console.error('Error fetching products:', error.message);
+    console.error('Error fetching products:', error.message); // Log the exact error message
     throw {
       status: 'error',
       message: `Error fetching products: ${error.message}`,

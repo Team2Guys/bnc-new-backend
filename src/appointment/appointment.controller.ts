@@ -27,9 +27,4 @@ export class AppointmentController {
   AllBacks() {
     return this.AppointmentService.AllBacks();
   }
-
-  @Post('contact-us')
-  contactUS(@Body() CreateContactDto: CreateContactDto) {
-    return this.AppointmentService.contactUS(CreateContactDto);
-  }
 }

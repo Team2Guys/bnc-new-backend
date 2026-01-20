@@ -111,12 +111,10 @@ export class ReviewsService {
 
   async findOneRedirectUrls(url: string) {
     try {
-      console.log(url, 'urls');
       let category = await this.prisma.redirecturls.findUnique({
         where: { url },
         select: { redirectedUrl: true, url: true },
       });
-      console.log(category, 'category', url);
       if (!category)
         return CustomErrorHandler(
           'redirect urls not not found',

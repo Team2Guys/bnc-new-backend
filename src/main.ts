@@ -50,8 +50,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('docs', app, document);
-  await app.listen(process.env.port || 5002, () =>
-    console.log(`http://localhost:${process.env.port || 5002}/backend/api`),
+  await app.listen(process.env.port || 5009, () =>
+    console.log(`http://localhost:${process.env.port || 5009}/backend/api`),
   );
 }
 bootstrap();
