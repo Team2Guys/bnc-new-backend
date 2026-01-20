@@ -11,17 +11,10 @@ import { BlogsModule } from './blogs/blogs.module';
 import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
-  imports: [
-    CategoriesModule,
-    ProductsModule,
-    FileUploadModule,
-    MyLoggerModule,
-    AppointmentModule,
-    AdminsModule,
-    BlogsModule,
-    ReviewsModule,
-  ],
+  imports: [CategoriesModule, ProductsModule, FileUploadModule, MyLoggerModule, AppointmentModule, AdminsModule, BlogsModule, ReviewsModule],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+
+

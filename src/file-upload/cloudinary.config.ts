@@ -5,8 +5,14 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
+  secure:true
 });
+
+
+
+
+
+
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION!,
@@ -15,5 +21,6 @@ const s3 = new S3Client({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
   },
 });
+
 
 export { cloudinary, s3 };

@@ -68,10 +68,10 @@ export class BlogsService {
   ) {
     try {
       const { email } = req.user;
-      let updatedAt = new Date();
+      let updatedAt = new Date()
       const updated_blog = await this.prisma.blogs.update({
         where: { id: id },
-        data: { ...updateBlogDto, last_editedBy: email, updatedAt },
+        data: { ...updateBlogDto, last_editedBy: email,updatedAt },
       });
 
       if (!updateBlogDto)

@@ -34,6 +34,8 @@ model Categories {
   categoryCustomUrl  String?
   productCustomUrl   String?
   status             Status? @default(PUBLISHED)
+  recalledProducts    products[] @relation("RecallCategories")
+
 }
 
 
@@ -102,6 +104,8 @@ model products {
   privarcyImage  Json? //✅
   colorsImages   Json[]  @default([])
   status         Status? @default(PUBLISHED)
+recalledByCategories Categories[] @relation("RecallCategories")
+
 }
 
 enum contact_method {
