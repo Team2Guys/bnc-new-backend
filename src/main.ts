@@ -23,7 +23,7 @@ async function bootstrap() {
         'https://bncprod.vercel.app',
         'https://ppc.blindsandcurtains.ae/',
         'https://ppc.blindsandcurtains.ae',
-        'https://bnc-new-frontend.vercel.app/',
+        'https://bnc-new-frontend.vercel.app',
       ];
 
       if (!origin || allowedOrigins.includes(origin)) {
